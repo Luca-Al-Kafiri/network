@@ -80,23 +80,20 @@ def user(request, username):
             status = 'Follow'
             following = Follow.objects.filter(user=id.id).count()
             followers = Follow.objects.filter(following=id.id).count()
-            return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
         except ObjectDoesNotExist:
             f = Follow.objects.create(user=User.objects.get(username=current_user), following=User.objects.get(username= username))
             f.save()
             status = 'Unfollow'
             following = Follow.objects.filter(user=id.id).count()
             followers = Follow.objects.filter(following=id.id).count()
-            return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
+        return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
     else:
         try:
             f = Follow.objects.get(user=User.objects.get(username=current_user), following=User.objects.get(username= username))
             status = 'Unfollow'
-            return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
         except ObjectDoesNotExist:
             status = 'Follow'
-            return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
-
+        return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
 
 
 @csrf_exempt
