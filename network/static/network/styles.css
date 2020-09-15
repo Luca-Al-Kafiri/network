@@ -1,0 +1,49 @@
+.post, .edit{
+    margin: 2px;
+    padding : 5px;
+    border : 2px solid black;
+    border-radius: 5px;
+    width: 24%;
+    word-wrap: break-word;
+}
+
+#all{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#new{
+    text-align: center;
+    margin: 5px;
+}
+
+#content{
+    vertical-align: bottom;
+}
+
+#next{
+    float: right;
+    margin-right: 20px;
+}
+
+a{
+    color: gray;
+    
+}
+a:hover{
+    color: gray;
+    text-decoration: none;
+}
+
+.head{
+    text-align: center;
+}
+
+#button{
+    color: green;
+}
+
+textarea{
+    border-radius: 5px;
+}

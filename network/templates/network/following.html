@@ -1,0 +1,47 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<div id="all">
+    {% for post in posts %}
+    <div id='post{{post.id}}' class="post">
+        <a href="{% url 'user' post.user %}">{{ post.user }}</a><br>
+        <div>{{ post.post }}</div>
+        <small>{{ post.timestamp }}</small><br>
+        <div id="likes{{post.id}}">Likes : {{ post.like.count }}</div>
+
+<div id="hide{{post.id}}">
+    {% if user.is_authenticated and request.user.username != post.user %}
+    {% if post in user.like.all%}
+        <a href="#" id='like' data-post={{post.id}}><span id="like{{post.id}}">Unlike</span></a><br>
+    {% else %}
+        <a href="#" id='like' data-post={{post.id}}><span id="like{{post.id}}">Like</span></a><br>
+    {% endif %}
+    {% endif %}
+    </div>
+</div>
+    {% endfor %}
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if posts.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% url 'follow' %}?page={{posts.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a>
+      </li>
+      {% endif %}
+      {% if posts.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% url 'follow' %}?page={{posts.next_page_number}}">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/like.js' %}" ></script>
+{% endblock %}
+
