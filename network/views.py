@@ -71,6 +71,8 @@ def user(request, username):
             posts = post.page(1)
     id = User.objects.get(username=username)
     current_user = request.user.username
+    following = Follow.objects.filter(user=id.id).count()
+    followers = Follow.objects.filter(following=id.id).count()
     if request.method == "POST":
         try:
             f = Follow.objects.get(user=User.objects.get(username=current_user), following=User.objects.get(username= username))
@@ -90,13 +92,9 @@ def user(request, username):
         try:
             f = Follow.objects.get(user=User.objects.get(username=current_user), following=User.objects.get(username= username))
             status = 'Unfollow'
-            following = Follow.objects.filter(user=id.id).count()
-            followers = Follow.objects.filter(following=id.id).count()
             return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
         except ObjectDoesNotExist:
             status = 'Follow'
-            following = Follow.objects.filter(user=id.id).count()
-            followers = Follow.objects.filter(following=id.id).count()
             return render(request, "network/user.html", {'posts': posts, 'followers': followers, "following": following, 'username': username, 'status': status})
 
 
