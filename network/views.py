@@ -10,8 +10,6 @@ import json
 from django.core.paginator import Paginator, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
 
-
-
 from .models import User, Post, Follow
 
 @csrf_exempt
@@ -39,6 +37,7 @@ def index(request):
             except:
                 posts = post.page(1)
         return render(request, "network/index.html" , {'posts': posts})
+
 
 @login_required
 def follow(request):
